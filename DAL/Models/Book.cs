@@ -16,6 +16,7 @@ namespace DAL.Models
         public List<Author> Authors { get; set; }
         //public string Description { get; set; }
         //public string CoverImage { get; set; }
+        //public string ISBN { get; set; }
 
         public Book()
         {
