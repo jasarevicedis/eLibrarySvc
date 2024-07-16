@@ -1,11 +1,19 @@
 using DAL.Data;
 using BLL.Mapper;
 using Microsoft.EntityFrameworkCore;
+using BLL.Interfaces;
+using BLL.Services;
+using DAL.Repositories;
+using DAL.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
+
+builder.Services.AddScoped(typeof(IUserRoleService), typeof(UserRoleService));
+
+builder.Services.AddScoped(typeof(IUserRoleRepository), typeof(UserRoleRepository));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
