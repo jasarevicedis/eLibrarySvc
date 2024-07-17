@@ -7,37 +7,37 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
 
-        [HttpGet("get-all")]
+        [HttpGet]
         public async Task<ActionResult<List<CategoryDtoResponse>>> GetAll()
         {
             var categories = await _categoryService.GetAll();
             return Ok(categories);
         }
 
-        [HttpGet("get-category/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<CategoryDtoResponse>> GetCategoryById(int id)
         {
             return await _categoryService.GetCategoryById(id);
         }
 
-        [HttpPost("add-category")]
+        [HttpPost]
         public async Task<ActionResult<CategoryDtoResponse>> AddCategory(CategoryDtoRequest categoryRequest) 
         {
             var newCategory = await _categoryService.AddCategory(categoryRequest);
             return Ok(newCategory);
         }
 
-        [HttpPut("update-category/{id}")]
-        public async Task<ActionResult<CategoryDtoResponse>> UpdateCategory(CategoryDtoRequest categoryRequest, int id)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<CategoryDtoResponse>> UpdateCategory(int id,CategoryDtoRequest categoryRequest)
         {
             var updatedCategory = await _categoryService.UpdateCategory(categoryRequest,id);
             return updatedCategory;
