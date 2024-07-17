@@ -8,16 +8,16 @@ namespace DAL.Models
 {
     public class Author
     {
-        public int Id { get; set; }
+        public int AuthorId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public List<Book> Books { get; set; }
 
         public Author() { }
 
-        public Author(int id, string firstName, string lastName, List<Book> books)
+        public Author(int authorId, string firstName, string lastName, List<Book> books)
         {
-            Id = id;
+            AuthorId = authorId;
             FirstName = firstName;
             LastName = lastName;
             Books = books;

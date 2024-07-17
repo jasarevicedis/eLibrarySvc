@@ -24,41 +24,41 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.Property<int>("AuthorsId")
+                    b.Property<int>("AuthorsAuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BooksId")
+                    b.Property<int>("BooksBookId")
                         .HasColumnType("int");
 
-                    b.HasKey("AuthorsId", "BooksId");
+                    b.HasKey("AuthorsAuthorId", "BooksBookId");
 
-                    b.HasIndex("BooksId");
+                    b.HasIndex("BooksBookId");
 
                     b.ToTable("AuthorBook");
                 });
 
             modelBuilder.Entity("BookCategory", b =>
                 {
-                    b.Property<int>("BooksId")
+                    b.Property<int>("BooksBookId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoriesId")
+                    b.Property<int>("CategoriesCategoryId")
                         .HasColumnType("int");
 
-                    b.HasKey("BooksId", "CategoriesId");
+                    b.HasKey("BooksBookId", "CategoriesCategoryId");
 
-                    b.HasIndex("CategoriesId");
+                    b.HasIndex("CategoriesCategoryId");
 
                     b.ToTable("BookCategory");
                 });
 
             modelBuilder.Entity("DAL.Models.Author", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AuthorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuthorId"));
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -68,18 +68,26 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AuthorId");
 
                     b.ToTable("Author", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Book", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("BookId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookId"));
+
+                    b.Property<string>("CoverImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PublishYear")
                         .HasColumnType("int");
@@ -88,18 +96,18 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("BookId");
 
                     b.ToTable("Book", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.BookItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("BookItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookItemId"));
 
                     b.Property<int>("BookId")
                         .HasColumnType("int");
@@ -108,7 +116,7 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("BookItemId");
 
                     b.HasIndex("BookId");
 
@@ -117,28 +125,28 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Loan", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("LoanId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LoanId"));
 
                     b.Property<int>("BookItemId")
                         .HasColumnType("int");
@@ -149,7 +157,7 @@ namespace DAL.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("LoanId");
 
                     b.HasIndex("BookItemId");
 
@@ -158,13 +166,60 @@ namespace DAL.Migrations
                     b.ToTable("Loan", (string)null);
                 });
 
-            modelBuilder.Entity("DAL.Models.User", b =>
+            modelBuilder.Entity("DAL.Models.Review", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ReviewId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"));
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReviewId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Review");
+                });
+
+            modelBuilder.Entity("DAL.Models.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Role", (string)null);
+                });
+
+            modelBuilder.Entity("DAL.Models.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -189,44 +244,31 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("UserRoleId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserRoleId");
-
-                    b.ToTable("User", (string)null);
-                });
-
-            modelBuilder.Entity("DAL.Models.UserRole", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
-                    b.ToTable("UserRole", (string)null);
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("AuthorBook", b =>
                 {
                     b.HasOne("DAL.Models.Author", null)
                         .WithMany()
-                        .HasForeignKey("AuthorsId")
+                        .HasForeignKey("AuthorsAuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Book", null)
                         .WithMany()
-                        .HasForeignKey("BooksId")
+                        .HasForeignKey("BooksBookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -235,13 +277,13 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Models.Book", null)
                         .WithMany()
-                        .HasForeignKey("BooksId")
+                        .HasForeignKey("BooksBookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Category", null)
                         .WithMany()
-                        .HasForeignKey("CategoriesId")
+                        .HasForeignKey("CategoriesCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -276,11 +318,30 @@ namespace DAL.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DAL.Models.Review", b =>
+                {
+                    b.HasOne("DAL.Models.Book", "Book")
+                        .WithMany("Reviews")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DAL.Models.User", b =>
                 {
-                    b.HasOne("DAL.Models.UserRole", "UserRole")
+                    b.HasOne("DAL.Models.Role", "UserRole")
                         .WithMany()
-                        .HasForeignKey("UserRoleId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -290,6 +351,13 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Book", b =>
                 {
                     b.Navigation("BookItems");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("DAL.Models.User", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

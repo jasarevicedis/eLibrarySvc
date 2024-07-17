@@ -15,77 +15,79 @@ namespace DAL.Migrations
                 name: "Author",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    AuthorId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Author", x => x.Id);
+                    table.PrimaryKey("PK_Author", x => x.AuthorId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Book",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    BookId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PublishYear = table.Column<int>(type: "int", nullable: false)
+                    PublishYear = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CoverImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Book", x => x.Id);
+                    table.PrimaryKey("PK_Book", x => x.BookId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Category",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Category", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRole",
+                name: "Role",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => x.Id);
+                    table.PrimaryKey("PK_Role", x => x.RoleId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "AuthorBook",
                 columns: table => new
                 {
-                    AuthorsId = table.Column<int>(type: "int", nullable: false),
-                    BooksId = table.Column<int>(type: "int", nullable: false)
+                    AuthorsAuthorId = table.Column<int>(type: "int", nullable: false),
+                    BooksBookId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthorBook", x => new { x.AuthorsId, x.BooksId });
+                    table.PrimaryKey("PK_AuthorBook", x => new { x.AuthorsAuthorId, x.BooksBookId });
                     table.ForeignKey(
-                        name: "FK_AuthorBook_Author_AuthorsId",
-                        column: x => x.AuthorsId,
+                        name: "FK_AuthorBook_Author_AuthorsAuthorId",
+                        column: x => x.AuthorsAuthorId,
                         principalTable: "Author",
-                        principalColumn: "Id",
+                        principalColumn: "AuthorId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AuthorBook_Book_BooksId",
-                        column: x => x.BooksId,
+                        name: "FK_AuthorBook_Book_BooksBookId",
+                        column: x => x.BooksBookId,
                         principalTable: "Book",
-                        principalColumn: "Id",
+                        principalColumn: "BookId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -93,19 +95,19 @@ namespace DAL.Migrations
                 name: "BookItem",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    BookItemId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookId = table.Column<int>(type: "int", nullable: false),
                     InstanceId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookItem", x => x.Id);
+                    table.PrimaryKey("PK_BookItem", x => x.BookItemId);
                     table.ForeignKey(
                         name: "FK_BookItem_Book_BookId",
                         column: x => x.BookId,
                         principalTable: "Book",
-                        principalColumn: "Id",
+                        principalColumn: "BookId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -113,23 +115,23 @@ namespace DAL.Migrations
                 name: "BookCategory",
                 columns: table => new
                 {
-                    BooksId = table.Column<int>(type: "int", nullable: false),
-                    CategoriesId = table.Column<int>(type: "int", nullable: false)
+                    BooksBookId = table.Column<int>(type: "int", nullable: false),
+                    CategoriesCategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookCategory", x => new { x.BooksId, x.CategoriesId });
+                    table.PrimaryKey("PK_BookCategory", x => new { x.BooksBookId, x.CategoriesCategoryId });
                     table.ForeignKey(
-                        name: "FK_BookCategory_Book_BooksId",
-                        column: x => x.BooksId,
+                        name: "FK_BookCategory_Book_BooksBookId",
+                        column: x => x.BooksBookId,
                         principalTable: "Book",
-                        principalColumn: "Id",
+                        principalColumn: "BookId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookCategory_Category_CategoriesId",
-                        column: x => x.CategoriesId,
+                        name: "FK_BookCategory_Category_CategoriesCategoryId",
+                        column: x => x.CategoriesCategoryId,
                         principalTable: "Category",
-                        principalColumn: "Id",
+                        principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -137,24 +139,25 @@ namespace DAL.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserRoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_User_UserRole_UserRoleId",
-                        column: x => x.UserRoleId,
-                        principalTable: "UserRole",
-                        principalColumn: "Id",
+                        name: "FK_User_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "RoleId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -162,7 +165,7 @@ namespace DAL.Migrations
                 name: "Loan",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    LoanId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookItemId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
@@ -170,30 +173,58 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Loan", x => x.Id);
+                    table.PrimaryKey("PK_Loan", x => x.LoanId);
                     table.ForeignKey(
                         name: "FK_Loan_BookItem_BookItemId",
                         column: x => x.BookItemId,
                         principalTable: "BookItem",
-                        principalColumn: "Id",
+                        principalColumn: "BookItemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Loan_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Review",
+                columns: table => new
+                {
+                    ReviewId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Review", x => x.ReviewId);
+                    table.ForeignKey(
+                        name: "FK_Review_Book_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Book",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Review_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthorBook_BooksId",
+                name: "IX_AuthorBook_BooksBookId",
                 table: "AuthorBook",
-                column: "BooksId");
+                column: "BooksBookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookCategory_CategoriesId",
+                name: "IX_BookCategory_CategoriesCategoryId",
                 table: "BookCategory",
-                column: "CategoriesId");
+                column: "CategoriesCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookItem_BookId",
@@ -211,9 +242,19 @@ namespace DAL.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_UserRoleId",
+                name: "IX_Review_BookId",
+                table: "Review",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Review_UserId",
+                table: "Review",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_RoleId",
                 table: "User",
-                column: "UserRoleId");
+                column: "RoleId");
         }
 
         /// <inheritdoc />
@@ -227,6 +268,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Loan");
+
+            migrationBuilder.DropTable(
+                name: "Review");
 
             migrationBuilder.DropTable(
                 name: "Author");
@@ -244,7 +288,7 @@ namespace DAL.Migrations
                 name: "Book");
 
             migrationBuilder.DropTable(
-                name: "UserRole");
+                name: "Role");
         }
     }
 }

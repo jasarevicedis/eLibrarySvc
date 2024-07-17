@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class UserRoleRepository : Repository<UserRole>, IUserRoleRepository
+    public class RoleRepository : Repository<Role>, IRoleRepository
     {
         private readonly DataContext _dataContext;
-        public UserRoleRepository(DataContext dataContext) : base(dataContext)
+        public RoleRepository(DataContext dataContext) : base(dataContext)
         {
             _dataContext = dataContext;
         }

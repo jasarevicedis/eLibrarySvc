@@ -12,15 +12,9 @@ namespace DAL.Models
         {
         }
 
-        public Loan(int id, BookItem bookItem, User user, DateTime loanTime)
-        {
-            Id = id;
-            BookItem = bookItem;
-            User = user;
-            LoanTime = loanTime;
-        }
-
-        public int Id { get; set; }
+        public int LoanId { get; set; }
+        public int BookItemId { get; set; }
+        public int UserId   { get; set; }
         public BookItem BookItem { get; set; }
         public User User { get; set; }
         public DateTime LoanTime { get; set; }

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models
+namespace BLL.DTOs
 {
-    public class UserRole
+    public class RoleDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

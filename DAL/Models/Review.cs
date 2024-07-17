@@ -6,17 +6,14 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class BookItem
+    public class Review
     {
-        public int BookItemId { get; set; }
+        public int ReviewId { get; set; }
+        public int Rating { get; set; }
+        public string Comment { get; set; }
         public Book Book { get; set; }
         public int BookId { get; set; }
-        public string InstanceId { get; set; }
-
-        public BookItem()
-        {
-        }
-
-        
+        public User User { get; set; }
+        public int UserId { get; set; }
     }
 }

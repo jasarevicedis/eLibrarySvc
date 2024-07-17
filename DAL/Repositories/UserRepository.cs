@@ -35,7 +35,7 @@ namespace DAL.Repositories
 
         public async Task<User> GetUserById(int userId)
         {
-            return await _dataContext.users.AsNoTracking().Include(u => u.UserRole).FirstAsync( x => x.Id == userId);
+            return await _dataContext.users.AsNoTracking().Include(u => u.UserRole).FirstAsync( x => x.UserId == userId);
         }
     }
 }

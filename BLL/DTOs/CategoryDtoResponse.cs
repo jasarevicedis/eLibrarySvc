@@ -8,5 +8,6 @@ namespace BLL.DTOs
 {
     public class CategoryDtoResponse
     {
+        public string Name { get; set; }
     }
 }

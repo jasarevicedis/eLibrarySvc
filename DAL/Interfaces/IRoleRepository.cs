@@ -1,13 +1,13 @@
-﻿using System;
+﻿using DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.DTOs
+namespace DAL.Interfaces
 {
-    public class UserRoleDto
+    public interface IRoleRepository: IRepository<Role>
     {
-        public string Name { get; set; }
     }
 }

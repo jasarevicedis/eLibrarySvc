@@ -15,7 +15,7 @@ namespace DAL.Data
         public DbSet<Category> categories { get; set; }
         public DbSet<Loan> loans { get; set; }
         public DbSet<User> users { get; set; }
-        public DbSet<UserRole> roles { get; set; }
+        public DbSet<Role> roles { get; set; }
         public DbSet<BookItem> book_items { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
@@ -27,7 +27,7 @@ namespace DAL.Data
             modelBuilder.Entity<Category>().ToTable(nameof(Category));
             modelBuilder.Entity<Loan>().ToTable(nameof(Loan));
             modelBuilder.Entity<User>().ToTable(nameof(User));
-            modelBuilder.Entity<UserRole>().ToTable(nameof(UserRole));
+            modelBuilder.Entity<Role>().ToTable(nameof(Role));
             modelBuilder.Entity<BookItem>().ToTable(nameof(BookItem));
 
             base.OnModelCreating(modelBuilder);

@@ -13,13 +13,23 @@ namespace BLL.Mapper
     {
         public MappingProfiles()
         {
-            CreateMap<UserRole, UserRoleDto>();
-            CreateMap<UserRoleDto, UserRole>();
+            CreateMap<Role, RoleDto>();
+            CreateMap<RoleDto, Role>();
+
+            CreateMap<UserDtoResponse, User>();
+            CreateMap<User, UserDtoResponse>();
+
+            CreateMap<UserDtoRequest, User>();
+            CreateMap<User, UserDtoRequest>();
+
+
             //CreateMap<Book, BookDtoRequest>();
             //CreateMap<BookDtoRequest, Book>();
 
-            //CreateMap<Category, CategoryDtoRequest>();
-            //CreateMap<CategoryDtoRequest, Category>();
+            CreateMap<Category, CategoryDtoRequest>();
+            CreateMap<CategoryDtoRequest, Category>();
+            CreateMap<Category, CategoryDtoResponse>();
+            CreateMap<CategoryDtoResponse, Category>();
 
             //CreateMap<Author, AuthorDtoRequest>();
             //CreateMap<AuthorDtoRequest, Author>();

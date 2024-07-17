@@ -8,18 +8,18 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserRoleController : ControllerBase
+    public class RoleController : ControllerBase
     {
-        private readonly IUserRoleService _userRoleService;
+        private readonly IRoleService _userRoleService;
 
-        public UserRoleController(IUserRoleService userRoleService)
+        public RoleController(IRoleService userRoleService)
         {
             _userRoleService = userRoleService;
         }
 
         [HttpGet]
-        //[Authorize
-        public async Task<ActionResult<UserRoleDto>> GetUserRoleById(int roleId)
+        //[Authorize()]
+        public async Task<ActionResult<RoleDto>> GetUserRoleById(int roleId)
         {
             return await _userRoleService.GetUserRoleById(roleId);
         }

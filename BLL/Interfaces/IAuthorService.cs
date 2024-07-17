@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,11 @@ namespace BLL.Interfaces
 {
     public interface IAuthorService
     {
+        Task<AuthorDtoResponse> GetAuthorById(int authorId);
+        Task<List<AuthorDtoResponse>> GetAuthors();
+        //Task<List<AuthorDtoResponse>> GetAuthorsForBook(int bookId);
+        Task<object> AddAuthor(AuthorDtoRequest request);
+        Task UpdateAuthor(AuthorDtoRequest request);
+        Task DeleteAuthor(int authorId);
     }
 }

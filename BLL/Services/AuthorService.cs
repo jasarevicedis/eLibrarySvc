@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BLL.DTOs;
 using BLL.Interfaces;
 using DAL.Interfaces;
 using System;
@@ -13,5 +14,36 @@ namespace BLL.Services
     {
         private readonly IMapper _mapper;
         private readonly IAuthorRepository _authorRepository;
+
+        public AuthorService(IMapper mapper, IAuthorRepository authorRepository)
+        {
+            _mapper = mapper;
+            _authorRepository = authorRepository;
+        }
+
+        public Task<object> AddAuthor(AuthorDtoRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAuthor(int authorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<AuthorDtoResponse> GetAuthorById(int authorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<AuthorDtoResponse>> GetAuthors()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAuthor(AuthorDtoRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

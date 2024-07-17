@@ -29,7 +29,12 @@ namespace BLL.Services
             _configuration = configuration;
         }
 
-        public Task<UserDtoResponse> AddUser(UserRegisterDto userRegisterDto, int adminId)
+        public Task<UserDtoResponse> AddUser(UserDtoRequest userRegisterDto, int adminId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteUser(int userId)
         {
             throw new NotImplementedException();
         }
@@ -44,7 +49,7 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public async Task<(CookieOptions cookiesOption, object data)> Login(LoginRequest loginRequest)
+        public async Task<(CookieOptions cookiesOption, object data)> Login(LoginDtoRequest loginRequest)
         {
             var user = new User();
 
@@ -70,6 +75,30 @@ namespace BLL.Services
 
             return (null,null);
 
+        }
+
+        public async Task<UserDtoResponse> RegisterUser(UserDtoRequest registerRequest)
+        {
+            
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(registerRequest.Password);
+
+            User user = new User
+            {
+                FirstName = registerRequest.FirstName,
+                LastName = registerRequest.LastName,
+                Email = registerRequest.Email,
+                Username = registerRequest.Username,
+                PasswordHash = Encoding.UTF8.GetBytes(passwordHash),
+                PasswordSalt = [],
+                RoleId = registerRequest.RoleId,
+            };
+            _userRepository.Add(user);
+
+            await _userRepository.SaveChangesAsync();
+
+            var userDto = _mapper.Map<UserDtoResponse>(user);
+
+            return userDto;
         }
 
         public Task RemoveUser(int userId)

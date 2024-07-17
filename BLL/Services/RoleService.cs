@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    public class UserRoleService : IUserRoleService
+    public class RoleService : IRoleService
     {
         private readonly IMapper _mapper;
-        private readonly IUserRoleRepository _userRoleRepository;
+        private readonly IRoleRepository _userRoleRepository;
 
-        public UserRoleService(IMapper mapper, IUserRoleRepository userRoleRepository)
+        public RoleService(IMapper mapper, IRoleRepository userRoleRepository)
         {
             _mapper = mapper;
             _userRoleRepository = userRoleRepository;
         }
 
-        public async Task<UserRoleDto> GetUserRoleById(int roleId)
+        public async Task<RoleDto> GetUserRoleById(int roleId)
         {
             var userRole = await _userRoleRepository.GetById(roleId);
-            return _mapper.Map<UserRoleDto>(userRole);
+            return _mapper.Map<RoleDto>(userRole);
         }
     }
 }

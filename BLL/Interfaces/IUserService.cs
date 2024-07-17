@@ -11,10 +11,11 @@ namespace BLL.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDtoResponse> AddUser(UserRegisterDto userRegisterDto, int adminId);
+        Task<UserDtoResponse> AddUser(UserDtoRequest userRegisterDto, int adminId);
         Task<List<UserDtoResponse>> GetAll();
-        Task RemoveUser(int userId);
+        Task DeleteUser(int userId);
         Task<User> GetUserById(int id);
-        Task<(CookieOptions cookiesOption,object data)> Login(LoginRequest loginRequest);
+        Task<(CookieOptions cookiesOption,object data)> Login(LoginDtoRequest loginRequest);
+        Task<UserDtoResponse> RegisterUser(UserDtoRequest registerRequest);
     }
 }
