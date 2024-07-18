@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/categories")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {
@@ -19,7 +19,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<CategoryDtoResponse>>> GetAll()
         {
-            var categories = await _categoryService.GetAll();
+            var categories = await _categoryService.GetCategories();
             return Ok(categories);
         }
 

@@ -31,6 +31,11 @@ namespace BLL.Mapper
             CreateMap<Category, CategoryDtoResponse>();
             CreateMap<CategoryDtoResponse, Category>();
 
+            CreateMap<Author, AuthorDtoRequest>();
+            CreateMap<AuthorDtoRequest, Author>();
+            CreateMap<Author, AuthorDtoResponse>();
+            CreateMap<AuthorDtoResponse, Author>();
+
             //CreateMap<Author, AuthorDtoRequest>();
             //CreateMap<AuthorDtoRequest, Author>();
 

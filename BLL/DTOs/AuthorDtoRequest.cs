@@ -8,5 +8,7 @@ namespace BLL.DTOs
 {
     public class AuthorDtoRequest
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

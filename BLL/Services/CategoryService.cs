@@ -22,7 +22,7 @@ namespace BLL.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<List<CategoryDtoResponse>> GetAll()
+        public async Task<List<CategoryDtoResponse>> GetCategories()
         {
             var categories = await _categoryRepository.GetAll();
             return _mapper.Map<List<CategoryDtoResponse>>(categories);

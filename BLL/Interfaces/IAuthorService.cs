@@ -13,7 +13,7 @@ namespace BLL.Interfaces
         Task<List<AuthorDtoResponse>> GetAuthors();
         //Task<List<AuthorDtoResponse>> GetAuthorsForBook(int bookId);
         Task<object> AddAuthor(AuthorDtoRequest request);
-        Task UpdateAuthor(AuthorDtoRequest request);
+        Task<AuthorDtoResponse> UpdateAuthor(AuthorDtoRequest request, int authorId);
         Task DeleteAuthor(int authorId);
     }
 }

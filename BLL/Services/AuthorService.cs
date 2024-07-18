@@ -2,6 +2,8 @@
 using BLL.DTOs;
 using BLL.Interfaces;
 using DAL.Interfaces;
+using DAL.Models;
+using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +23,19 @@ namespace BLL.Services
             _authorRepository = authorRepository;
         }
 
-        public Task<object> AddAuthor(AuthorDtoRequest request)
+        public async Task<object> AddAuthor(AuthorDtoRequest request)
         {
-            throw new NotImplementedException();
+            Author author = new Author
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+            };
+            _authorRepository.Add(author);
+
+            await _authorRepository.SaveChangesAsync();
+
+            var addedAuthor = _mapper.Map<AuthorDtoResponse>(author);
+            return addedAuthor;
         }
 
         public Task DeleteAuthor(int authorId)
@@ -31,19 +43,34 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<AuthorDtoResponse> GetAuthorById(int authorId)
+        public async Task<AuthorDtoResponse> GetAuthorById(int authorId)
         {
-            throw new NotImplementedException();
+            var author = await _authorRepository.GetById(authorId);
+            return _mapper.Map<AuthorDtoResponse>(author);
         }
 
-        public Task<List<AuthorDtoResponse>> GetAuthors()
+        public async Task<List<AuthorDtoResponse>> GetAuthors()
         {
-            throw new NotImplementedException();
+            var authors = await _authorRepository.GetAll();
+            return _mapper.Map<List<AuthorDtoResponse>>(authors);
         }
 
-        public Task UpdateAuthor(AuthorDtoRequest request)
+        public async Task<AuthorDtoResponse> UpdateAuthor(AuthorDtoRequest authorRequest, int authorId)
         {
-            throw new NotImplementedException();
+            var mappedAuthor = _mapper.Map<Author>(authorRequest);
+
+            var author = await _authorRepository.GetById(authorId);
+
+            _authorRepository.DetachEntity(author);
+            mappedAuthor.AuthorId = authorId;
+            _authorRepository.Update(mappedAuthor);
+
+            await _authorRepository.SaveChangesAsync();
+
+            var updatedAuthor = _mapper.Map<AuthorDtoResponse>(mappedAuthor);
+            return updatedAuthor;
         }
+
+        
     }
 }

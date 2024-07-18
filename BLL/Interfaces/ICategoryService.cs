@@ -10,7 +10,7 @@ namespace BLL.Interfaces
     public interface ICategoryService
     {
         Task<CategoryDtoResponse> GetCategoryById(int id);
-        Task<List<CategoryDtoResponse>> GetAll();
+        Task<List<CategoryDtoResponse>> GetCategories();
         Task<CategoryDtoResponse> AddCategory(CategoryDtoRequest categoryDtoRequest);
         Task<CategoryDtoResponse> UpdateCategory(CategoryDtoRequest categoryDtoRequest, int categoryId);
         Task DeleteCategory(int categoryId);

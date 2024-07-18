@@ -22,5 +22,11 @@ namespace DAL.Models
             LastName = lastName;
             Books = books;
         }
+
+        public Author(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
     }
 }
