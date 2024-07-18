@@ -342,13 +342,13 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.User", b =>
                 {
-                    b.HasOne("DAL.Models.Role", "UserRole")
+                    b.HasOne("DAL.Models.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserRole");
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("DAL.Models.Book", b =>

@@ -29,9 +29,26 @@ namespace BLL.Services
             _configuration = configuration;
         }
 
-        public Task<UserDtoResponse> AddUser(UserDtoRequest userRegisterDto, int adminId)
+        public async Task<UserDtoResponse> AddUser(UserDtoRequest userRegisterDto)
         {
-            throw new NotImplementedException();
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRegisterDto.Password);
+
+            User user = new User
+            {
+                FirstName = userRegisterDto.FirstName,
+                LastName = userRegisterDto.LastName,
+                Email = userRegisterDto.Email,
+                Username = userRegisterDto.Username,
+                PasswordHash = Encoding.UTF8.GetBytes(passwordHash),
+                PasswordSalt = [],
+                RoleId = userRegisterDto.RoleId,
+            };
+            _userRepository.Add(user);
+
+            await _userRepository.SaveChangesAsync();
+
+            var newUser = _mapper.Map<UserDtoResponse>(user);
+            return newUser;
         }
 
         public Task DeleteUser(int userId)
@@ -39,14 +56,16 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<UserDtoResponse>> GetAll()
+        public async Task<List<UserDtoResponse>> GetAll()
         {
-            throw new NotImplementedException();
+            var users = await _userRepository.GetAll();
+
+            return _mapper.Map<List<UserDtoResponse>>(users);
         }
 
-        public Task<User> GetUserById(int id)
+        public async Task<User> GetUserById(int id)
         {
-            throw new NotImplementedException();
+            return await _userRepository.GetUserById(id);
         }
 
         public async Task<(CookieOptions cookiesOption, object data)> Login(LoginDtoRequest loginRequest)
@@ -104,6 +123,26 @@ namespace BLL.Services
         public Task RemoveUser(int userId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<UserDtoResponse> UpdateUser(UserDtoRequest userRequest, int userId)
+        {
+            var mappedUser = _mapper.Map<User>(userRequest);
+
+            var user = await _userRepository.GetById(userId);
+
+            mappedUser.PasswordHash = user!.PasswordHash;
+            mappedUser.PasswordSalt = user.PasswordSalt;
+
+            _userRepository.DetachEntity(user);
+            //mappedUser.Role = null;
+            mappedUser.Role = null;
+            //user = mappedUser;
+            _userRepository.Update(mappedUser);
+            await _userRepository.SaveChangesAsync();
+
+            var updatedUser = _mapper.Map<UserDtoResponse>(userRequest);
+            return updatedUser;
         }
     }
 }

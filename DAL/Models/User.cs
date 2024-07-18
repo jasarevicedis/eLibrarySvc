@@ -12,6 +12,17 @@ namespace DAL.Models
         {
         }
 
+        public User(string username, string firstName, string lastName, string email, byte[] passwordHash, byte[] passwordSalt, int roleId)
+        {
+            Username = username;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            PasswordHash = passwordHash;
+            PasswordSalt = passwordSalt;
+            RoleId = roleId;
+        }
+
         public int UserId { get; set; }
         public string Username  { get; set; }
         public string FirstName { get; set; }
@@ -21,7 +32,7 @@ namespace DAL.Models
         public byte[] PasswordSalt { get; set; }
         public DateTime JoinDate { get; set; }
         public int RoleId { get; set; }
-        public Role UserRole { get; set; }
+        public Role Role { get; set; }
         public List<Review> Reviews { get; set; }
     }
 }

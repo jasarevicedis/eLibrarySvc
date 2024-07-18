@@ -20,22 +20,22 @@ namespace DAL.Repositories
 
         public async Task<User> FindByEmail(string email)
         {
-            return await _dataContext.users.Include(u => u.UserRole).FirstAsync(x => x.Email == email);
+            return await _dataContext.users.Include(u => u.Role).FirstAsync(x => x.Email == email);
         }
 
         public async Task<User> FindByUsername(string username)
         {
-            return await _dataContext.users.Include(u => u.UserRole).FirstAsync(x => x.Username == username);
+            return await _dataContext.users.Include(u => u.Role).FirstAsync(x => x.Username == username);
         }
 
         public async Task<List<User>> GetAllByRole(string role)
         {
-            return await _dataContext.users.Where(x => x.UserRole.Name == role).ToListAsync();
+            return await _dataContext.users.Where(x => x.Role.Name == role).ToListAsync();
         }
 
         public async Task<User> GetUserById(int userId)
         {
-            return await _dataContext.users.AsNoTracking().Include(u => u.UserRole).FirstAsync( x => x.UserId == userId);
+            return await _dataContext.users.AsNoTracking().Include(u => u.Role).FirstAsync( x => x.UserId == userId);
         }
     }
 }
